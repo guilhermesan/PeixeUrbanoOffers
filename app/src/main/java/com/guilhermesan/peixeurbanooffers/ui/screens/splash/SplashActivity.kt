@@ -25,7 +25,7 @@ class SplashActivity : AppCompatActivity() {
             val trasnslationY =  Math.cos((it.animatedValue as Float * -10f).toDouble()).toFloat()
             ivLogo.translationY = trasnslationY * 20 * metrics.density
             Log.i("position", trasnslationY.toString())
-            ivLogo.rotation = trasnslationY * (-25)
+            ivLogo.rotation = trasnslationY * (-5)
             ivLogo.x = initialXPosition - ((initialXPosition - finalPosition) * it.animatedValue as Float)
         }
         anim.addListener(object : Animator.AnimatorListener{
@@ -52,28 +52,28 @@ class SplashActivity : AppCompatActivity() {
 
     fun alphaAnimation(){
         ivLogoFixed
-                .animate()
-                .setDuration(500)
-                .translationYBy(resources.displayMetrics.density * -15)
-                .alphaBy(1f)
-                .setListener(object :Animator.AnimatorListener{
-                    override fun onAnimationRepeat(p0: Animator?) {
+            .animate()
+            .setDuration(300)
+            .translationYBy(resources.displayMetrics.density * -15)
+            .alphaBy(1f)
+            .setListener(object :Animator.AnimatorListener{
+                override fun onAnimationRepeat(p0: Animator?) {
 
-                    }
+                }
 
-                    override fun onAnimationEnd(p0: Animator?) {
+                override fun onAnimationEnd(p0: Animator?) {
 
-                    }
+                }
 
-                    override fun onAnimationCancel(p0: Animator?) {
+                override fun onAnimationCancel(p0: Animator?) {
 
-                    }
+                }
 
-                    override fun onAnimationStart(p0: Animator?) {
+                override fun onAnimationStart(p0: Animator?) {
 
-                    }
+                }
 
-                })
-                .start()
+            })
+            .start()
     }
 }
