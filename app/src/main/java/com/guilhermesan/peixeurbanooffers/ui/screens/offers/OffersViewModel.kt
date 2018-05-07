@@ -28,6 +28,7 @@ class OffersViewModel(val app: Application) : BaseViewModel(app) {
     private val limit = 50
 
 
+    val permissionDeniedLiveData = MutableLiveData<Boolean>()
 
     val offersLiveData = MutableLiveData<LiveData<PagedList<Offer>>>()
     lateinit var offersPagedList :LiveData<PagedList<Offer>>
@@ -61,6 +62,13 @@ class OffersViewModel(val app: Application) : BaseViewModel(app) {
 
 
     }
+
+
+    fun permissionDenied(){
+        permissionDeniedLiveData.value = true
+        hiddeLoading()
+    }
+
 
     private fun createLocationRequest() {
         locationRequest = LocationRequest().apply {

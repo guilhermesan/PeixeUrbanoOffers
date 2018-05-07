@@ -4,4 +4,7 @@
     <string name="splash_email">guilherme.devel@gmail.com</string>
     <string name="splash_profession">Engenheiro de Software</string>
     <string name="price_title">A partir de</string>
+    <string name="permission_asking">Sem sua permissão não podemos te mostrar nossa ofertas incríveis\nE ai? Mudou de idéia?\n Então clica no Peixinho Urbano</string>
+    <string name="permission_button">Bora explorar a cidade?</string>
+
 </resources>

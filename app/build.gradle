@@ -76,9 +76,6 @@ dependencies {
     //Google services
     implementation "com.google.android.gms:play-services-location:15.0.0"
 
-    //Permisions easier
-    implementation 'com.karumi:dexter:4.2.0'
-
     // Paging
     implementation "android.arch.paging:runtime:1.0.0-rc1"
 

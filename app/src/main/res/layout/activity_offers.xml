@@ -35,4 +35,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar"/>
 
+    <include layout="@layout/view_permission_denied" />
+
 </android.support.design.widget.CoordinatorLayout>

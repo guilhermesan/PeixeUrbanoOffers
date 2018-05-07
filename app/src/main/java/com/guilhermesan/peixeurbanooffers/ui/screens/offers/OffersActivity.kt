@@ -4,20 +4,17 @@ import android.Manifest
 import android.app.Activity
 import android.arch.lifecycle.Observer
 import android.content.IntentSender
+import android.content.pm.PackageManager
 import android.os.Bundle
+import android.support.v4.app.ActivityCompat
+import android.support.v4.content.ContextCompat
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.guilhermesan.peixeurbanooffers.R
 import com.guilhermesan.peixeurbanooffers.ui.screens.base.BaseActivity
-import com.karumi.dexter.Dexter
-import com.karumi.dexter.PermissionToken
-import com.karumi.dexter.listener.PermissionDeniedResponse
-import com.karumi.dexter.listener.PermissionGrantedResponse
-import com.karumi.dexter.listener.PermissionRequest
-import com.karumi.dexter.listener.single.DialogOnDeniedPermissionListener
-import com.karumi.dexter.listener.single.PermissionListener
 import kotlinx.android.synthetic.main.activity_offers.*
 import kotlinx.android.synthetic.main.toolbar.*
+import kotlinx.android.synthetic.main.view_permission_denied.*
 import org.jetbrains.anko.startActivity
 import javax.inject.Inject
 
@@ -34,6 +31,7 @@ class OffersActivity : BaseActivity() {
 
     companion object {
         const val REQUEST_CHECK_SETTINGS = 100
+        const val REQUEST_PERMISSIONS = 200
 
         fun start(activity: Activity){
             activity.startActivity<OffersActivity>()
@@ -52,28 +50,33 @@ class OffersActivity : BaseActivity() {
         rvList.layoutManager = LinearLayoutManager(this)
         rvList.adapter = offerAdapter
 
-        Dexter.withActivity(this)
-                .withPermission(Manifest.permission.ACCESS_COARSE_LOCATION)
-                .withListener(object : PermissionListener {
-                    override fun onPermissionGranted(response: PermissionGrantedResponse?) {
-                        viewModel.onPermissionGranted()
-                    }
+        checkPermission()
+        btPermissionAgain.setOnClickListener({
+            ActivityCompat.requestPermissions(this,
+                    arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                    REQUEST_PERMISSIONS)
+        })
 
-                    override fun onPermissionRationaleShouldBeShown(permission: PermissionRequest?, token: PermissionToken?) {
-                        val dialogPermissionListener = DialogOnDeniedPermissionListener.Builder
-                                .withContext(this@OffersActivity)
-                                .withTitle("Ops!")
-                                .withMessage("Precisamos da sua permissão para mostram as melhores ofertas ;)")
-                                .withButtonText(android.R.string.ok)
-                                .withIcon(R.mipmap.ic_launcher)
-                                .build()
-                    }
+    }
 
-                    override fun onPermissionDenied(response: PermissionDeniedResponse?) {
-
-                    }
-
-                }).check()
+    fun checkPermission(){
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+            // Permission is not granted
+            // Should we show an explanation?
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                            Manifest.permission.ACCESS_FINE_LOCATION)) {
+               viewModel.permissionDenied()
+            } else {
+                // No explanation needed, we can request the permission.
+                ActivityCompat.requestPermissions(this,
+                        arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                        REQUEST_PERMISSIONS)
+            }
+        } else {
+            viewModel.onPermissionGranted()
+            permission_container.visibility = View.GONE
+        }
 
     }
 
@@ -108,6 +111,10 @@ class OffersActivity : BaseActivity() {
                     }
                 }
             })
+
+            permissionDeniedLiveData.observe(this@OffersActivity, Observer {
+                permission_container.visibility = View.VISIBLE
+            })
         }
 
     }
@@ -121,5 +128,24 @@ class OffersActivity : BaseActivity() {
     override fun onPause() {
         super.onPause()
         viewModel.onPause()
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int,
+                                            permissions: Array<String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        when (requestCode) {
+            REQUEST_PERMISSIONS -> {
+                // If request is cancelled, the result arrays are empty.
+                if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+                    viewModel.onPermissionGranted()
+                    permission_container.visibility = View.GONE
+
+                } else {
+                   viewModel.permissionDenied()
+                }
+                return
+            }
+
+        }
     }
 }
