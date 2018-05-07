@@ -23,7 +23,7 @@ class OffersViewModel(val app: Application) : BaseViewModel(app) {
     @Inject
     lateinit var offerDataProvider: OfferDataProvider
 
-    private lateinit var fusedLocationClient: FusedLocationProviderClient
+    private var fusedLocationClient: FusedLocationProviderClient? = null
 
     private val limit = 50
 
@@ -39,7 +39,7 @@ class OffersViewModel(val app: Application) : BaseViewModel(app) {
     private lateinit var locationRequest :LocationRequest
     private lateinit var locationCallback: LocationCallback
     private var requestingLocationUpdates = false
-    lateinit var offerDataSourceFactory:OffersDataSourceFactory
+    private lateinit var offerDataSourceFactory:OffersDataSourceFactory
 
     init {
         getComponent().inject(this)
@@ -86,7 +86,7 @@ class OffersViewModel(val app: Application) : BaseViewModel(app) {
     }
 
     private fun startLocationUpdates() {
-        fusedLocationClient.requestLocationUpdates(locationRequest,
+        fusedLocationClient?.requestLocationUpdates(locationRequest,
                 locationCallback,
                 null /* Looper */)
     }
@@ -119,7 +119,7 @@ class OffersViewModel(val app: Application) : BaseViewModel(app) {
     }
 
     private fun stopLocationUpdates() {
-        fusedLocationClient.removeLocationUpdates(locationCallback)
+        fusedLocationClient?.removeLocationUpdates(locationCallback)
     }
 
 
