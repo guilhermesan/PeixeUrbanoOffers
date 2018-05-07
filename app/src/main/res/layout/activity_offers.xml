@@ -1,9 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".ui.screens.offers.OffersActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <include layout="@layout/toolbar"/>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/loadingView"
+        android:layout_gravity="center"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_repeatMode="restart"
+        app:lottie_fileName="jump_loader.json"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"/>
+
+</android.support.design.widget.CoordinatorLayout>

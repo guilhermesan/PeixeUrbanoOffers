@@ -1,6 +1,7 @@
 <resources>
-    <string name="app_name">PeixeUrbanoOffers</string>
+    <string name="app_name">Peixe Urbano</string>
     <string name="splash_name">Guilherme Alexandre Sant\'Ana</string>
     <string name="splash_email">guilherme.devel@gmail.com</string>
     <string name="splash_profession">Engenheiro de Software</string>
+    <string name="price_title">A partir de</string>
 </resources>

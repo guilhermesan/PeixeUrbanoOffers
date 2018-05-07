@@ -1,4 +1,4 @@
-package com.guilhermesan.datamodule;
+package com.guilhermesan.datacontracts;
 
 import org.junit.Test;
 

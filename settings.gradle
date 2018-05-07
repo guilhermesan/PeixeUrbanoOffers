@@ -1,1 +1,1 @@
-include ':app', ':datamodule'
+include ':app', ':datamodule', ':datacontracts'

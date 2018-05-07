@@ -17,11 +17,11 @@ abstract class BaseActivity : AppCompatActivity(){
         subscribe()
     }
 
-    fun setupToolBar(toolbar: Toolbar, title:String, showBack:Boolean) {
+
+    fun setupToolBar(toolbar: Toolbar, showBack:Boolean) {
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(showBack)
         supportActionBar?.setDisplayShowHomeEnabled(false)
-        supportActionBar?.title = title
     }
 
     abstract fun setup()

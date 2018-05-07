@@ -1,6 +1,7 @@
 package com.guilhermesan.peixeurbanooffers.di
 
 import com.guilhermesan.peixeurbanooffers.OffersApp
+import com.guilhermesan.peixeurbanooffers.ui.screens.offers.OffersViewModel
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.support.AndroidSupportInjectionModule
@@ -17,5 +18,6 @@ interface AppComponent {
     }
 
     fun inject(app: OffersApp)
+    fun inject(offersViewModel: OffersViewModel)
 }
 

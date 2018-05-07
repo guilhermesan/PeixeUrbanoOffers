@@ -3,9 +3,11 @@ package com.guilhermesan.peixeurbanooffers.ui.screens.splash
 import android.animation.Animator
 import android.animation.ValueAnimator
 import android.os.Bundle
+import android.os.Handler
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import com.guilhermesan.peixeurbanooffers.R
+import com.guilhermesan.peixeurbanooffers.ui.screens.offers.OffersActivity
 import kotlinx.android.synthetic.main.activity_splash.*
 
 
@@ -15,20 +17,20 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
 
-        val anim = ValueAnimator.ofFloat(0f,1f)
+        val anim = ValueAnimator.ofFloat(0f, 1f)
         val metrics = resources.displayMetrics
         val initialXPosition = metrics.widthPixels + ivLogo.layoutParams.width
         val finalPosition = ivLogo.layoutParams.width * -1
         ivLogo.x = initialXPosition.toFloat()
         anim.duration = 4500
-        anim.addUpdateListener{
-            val trasnslationY =  Math.cos((it.animatedValue as Float * -10f).toDouble()).toFloat()
+        anim.addUpdateListener {
+            val trasnslationY = Math.cos((it.animatedValue as Float * -10f).toDouble()).toFloat()
             ivLogo.translationY = trasnslationY * 20 * metrics.density
             Log.i("position", trasnslationY.toString())
             ivLogo.rotation = trasnslationY * (-5)
             ivLogo.x = initialXPosition - ((initialXPosition - finalPosition) * it.animatedValue as Float)
         }
-        anim.addListener(object : Animator.AnimatorListener{
+        anim.addListener(object : Animator.AnimatorListener {
             override fun onAnimationRepeat(p0: Animator?) {
 
             }
@@ -50,30 +52,33 @@ class SplashActivity : AppCompatActivity() {
 
     }
 
-    fun alphaAnimation(){
+    fun alphaAnimation() {
         ivLogoFixed
-            .animate()
-            .setDuration(300)
-            .translationYBy(resources.displayMetrics.density * -15)
-            .alphaBy(1f)
-            .setListener(object :Animator.AnimatorListener{
-                override fun onAnimationRepeat(p0: Animator?) {
+                .animate()
+                .setDuration(300)
+                .translationYBy(resources.displayMetrics.density * -15)
+                .alphaBy(1f)
+                .setListener(object : Animator.AnimatorListener {
+                    override fun onAnimationRepeat(p0: Animator?) {
 
-                }
+                    }
 
-                override fun onAnimationEnd(p0: Animator?) {
+                    override fun onAnimationEnd(p0: Animator?) {
+                        Handler().postDelayed({
+                            OffersActivity.start(this@SplashActivity)
+                            finish()
+                        }, 200)
+                    }
 
-                }
+                    override fun onAnimationCancel(p0: Animator?) {
 
-                override fun onAnimationCancel(p0: Animator?) {
+                    }
 
-                }
+                    override fun onAnimationStart(p0: Animator?) {
 
-                override fun onAnimationStart(p0: Animator?) {
+                    }
 
-                }
-
-            })
-            .start()
+                })
+                .start()
     }
 }

@@ -1,7 +1,5 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
-apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 27
@@ -34,26 +32,12 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
     //RX
     implementation "io.reactivex.rxjava2:rxandroid:$rxandroid_version"
     implementation "io.reactivex.rxjava2:rxjava:$rxjava_version"
-
-
-    //API
-    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
-    implementation "com.squareup.okhttp3:okhttp:$okhttp_version"
-    implementation "com.google.code.gson:gson:$gson_version"
-    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.1.0'
-
-    //Contracts
-    api project(':datacontracts')
-
-    //Dagger 2
-    implementation "com.google.dagger:dagger:$dagger_version"
-    kapt "com.google.dagger:dagger-compiler:$dagger_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
 repositories {
     mavenCentral()
