@@ -49,7 +49,7 @@ class OffersViewModel(val app: Application) : BaseViewModel(app) {
 
 
     fun onPermissionGranted() {
-
+        showLoading()
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(app)
         locationCallback = object : LocationCallback() {
             override fun onLocationResult(locationResult: LocationResult?) {
